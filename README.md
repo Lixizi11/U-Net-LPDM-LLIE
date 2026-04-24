@@ -56,12 +56,40 @@ Pre-trained UNet weights exist in the cnn/weight directory (if not trained, exec
 - `cnn/train.py`
 - Output: Preliminary enhanced images corresponding to low-light images are generated in the datasets/lol/eval15/cnn_enhanced directory.
 # Step 2: UNet Inference to Generate Preliminary Enhanced Images
-Enter the CNN directory
-change the path of data input and output
-`in_dir = r"\lol_dataset\eval15\low"`
-`out_dir = r"\lol_dataset\eval15\cnn_enhanced"`
-`cd cnn ` 
-Run the inference script to generate cnn_enhanced images
-`python infer.py` 
-Output: Preliminary enhanced images corresponding to low-light images are generated in the datasets/lol/eval15/cnn_enhanced directory.
+- Enter the CNN directory
+- `cd cnn ` 
+- change the path of data input and output(train.py)
+- `in_dir = r"\lol_dataset\eval15\low"`
+- `out_dir = r"\lol_dataset\eval15\cnn_enhanced"`
+- Run the inference script to generate cnn_enhanced images
+- `python infer.py` 
+- Output: Preliminary enhanced images corresponding to low-light images are generated in the datasets/lol/eval15/cnn_enhanced directory.
 # Step 3: Modify LPDM Inference Configuration
+Edit configs/test/denoise.yaml to specify input/output paths (key configurations are as follows):
+- # Core config in denoise.yaml
+```
+input:
+   dark_path: "../datasets/lol/eval15/low"          # Path to original low-light images
+   eta_path: "../datasets/lol/eval15/cnn_enhanced"  # Path to UNet-enhanced images
+output:
+   denoised_path: "../datasets/lol/eval15/lpdm_enhanced"  # Path to save LPDM final enhanced results
+device: "cuda"  # Running device
+diffusion:
+   steps: 30     # Diffusion steps (more steps = better effect but slower speed)
+   phi: 300     # Diffusion coefficient 
+```
+# Step 4: Run the LPDM inference script
+```
+python lpdm/scripts/denoise_config.py --config configs/test/denoise.yaml
+```
+Output: Final enhanced images are generated in the 
+datasets/lol/eval15/lpdm_enhanced
+directory (two-stage enhancement completed).you can also chage the path of the output.
+# Step 5: (Optional) Calculate Enhancement Metrics (PSNR/SSIM, etc.)
+Edit evaluate.py to specify the ground truth path and enhanced result path, then run metric calculation:
+```
+python evaluate.py 
+```
+
+
+
