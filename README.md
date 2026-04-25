@@ -32,7 +32,6 @@ lol_dataset/
 ├── configs/                      # Configuration file directory
 │   ├── test/
 │   │   ├── denoise.yaml          # LPDM inference config (paths, diffusion steps, etc.)
-│   │   └── metrics.yaml          # Metric calculation config
 │   └── train/
 │       └── lpdm_lol.yaml         # LPDM training config
 ├── external/                     # LPDM external dependencies (CLIP/taming-transformers)
