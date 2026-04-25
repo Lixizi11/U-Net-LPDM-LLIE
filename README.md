@@ -21,7 +21,7 @@ lol_dataset/
 │   ├── train.py                  # UNet training script (train the basic enhancement model)
 │   ├── infer.py                  # UNet inference script (generate cnn_enhanced images)
 │   └── weight/                   # UNet pre-trained weight files
-├── lpdm/                         # LPDM diffusion model core module
+├── lpdm/Idm                      # LPDM diffusion model core module
 │   ├── data/                     # LPDM dataset loading/preprocessing
 │   ├── models/                   # LPDM diffusion model network (UNet diffusion module)
 │   ├── modules/                  # LPDM sub-modules (attention, convolution blocks, etc.)
